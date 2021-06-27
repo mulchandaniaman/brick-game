@@ -3,17 +3,17 @@ const cvs = document.getElementById("breakout");
 const ctx = cvs.getContext("2d");
 
 // ADD BORDER TO CANVAS
-cvs.style.border = "1px solid #0ff";
+cvs.style.border = "1px solid #000000";
 
 // MAKE LINE THICK WHEN DRAWING TO CANVAS
 ctx.lineWidth = 3;
 
 // GAME VARIABLES AND CONSTANTS
-const PADDLE_WIDTH = 100;
+const PADDLE_WIDTH = 250;
+const PADDLE_HEIGHT = 52.74;
 const PADDLE_MARGIN_BOTTOM = 50;
-const PADDLE_HEIGHT = 10;
 const BALL_RADIUS = 8;
-let LIFE = 3; // PLAYER HAS 3 LIVES
+let LIFE = 10; // PLAYER HAS 3 LIVES
 let SCORE = 0;
 const SCORE_UNIT = 10;
 let LEVEL = 1;
@@ -33,11 +33,11 @@ const paddle = {
 
 // DRAW PADDLE
 function drawPaddle() {
-  ctx.fillStyle = "white";
-  ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
-
-  ctx.strokeStyle = "white";
-  ctx.strokeRect(paddle.x, paddle.y, paddle.width, paddle.height);
+  // ctx.fillStyle = "white";
+  // ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
+  ctx.drawImage(PADDLE_IMG, paddle.x, paddle.y, paddle.width, paddle.height);
+  // ctx.strokeStyle = "white";
+  // ctx.strokeRect(paddle.x, paddle.y, paddle.width, paddle.height);
 }
 
 // CONTROL THE PADDLE
@@ -78,12 +78,13 @@ const ball = {
 // DRAW THE BALL
 function drawBall() {
   ctx.beginPath();
-  ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-  ctx.fillStyle = "white";
-  ctx.fill();
-  ctx.strokeStyle = "white";
-  ctx.stroke();
-  ctx.closePath();
+  ctx.drawImage(LEVEL_FOUR, ball.x, ball.y, 35, 35);
+  // ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+  // ctx.fillStyle = "white";
+  // ctx.fill();
+  // ctx.strokeStyle = "white";
+  // ctx.stroke();
+  // ctx.closePath();
   // ctx.beginPath();
   // var backImg = new Image();
   // backImg.src = "/naruto_img/level_one.png";
@@ -111,7 +112,7 @@ function ballWallCollision() {
 
   if (ball.y + ball.radius > cvs.height) {
     LIFE--; // LOSE LIFE
-    LIFE_LOST.play();
+    // LIFE_LOST.play();
     resetBall();
   }
 }
@@ -152,14 +153,14 @@ function ballPaddleCollision() {
 // CREATE THE BRICKS
 const brick = {
   row: 1,
-  column: 5,
+  column: 15,
   width: 55,
   height: 20,
   offSetLeft: 20,
   offSetTop: 20,
   marginTop: 40,
-  fillColor: "#white",
-  strokeColor: "white",
+  fillColor: "#902020",
+  strokeColor: "black",
 };
 
 let bricks = [];
@@ -316,26 +317,26 @@ function loop() {
 }
 loop();
 
-// SELECT SOUND ELEMENT
-const soundElement = document.getElementById("sound");
+// !SELECT SOUND ELEMENT
+// const soundElement = document.getElementById("sound");
 
-soundElement.addEventListener("click", audioManager);
+// soundElement.addEventListener("click", audioManager);
 
-function audioManager() {
-  // CHANGE IMAGE SOUND_ON/OFF
-  let imgSrc = soundElement.getAttribute("src");
-  let SOUND_IMG =
-    imgSrc == "img/SOUND_ON.png" ? "img/SOUND_OFF.png" : "img/SOUND_ON.png";
+// function audioManager() {
+//   // CHANGE IMAGE SOUND_ON/OFF
+//   let imgSrc = soundElement.getAttribute("src");
+//   let SOUND_IMG =
+//     imgSrc == "img/SOUND_ON.png" ? "img/SOUND_OFF.png" : "img/SOUND_ON.png";
 
-  soundElement.setAttribute("src", SOUND_IMG);
+//   soundElement.setAttribute("src", SOUND_IMG);
 
-  // MUTE AND UNMUTE SOUNDS
-  WALL_HIT.muted = WALL_HIT.muted ? false : true;
-  PADDLE_HIT.muted = PADDLE_HIT.muted ? false : true;
-  BRICK_HIT.muted = BRICK_HIT.muted ? false : true;
-  WIN.muted = WIN.muted ? false : true;
-  LIFE_LOST.muted = LIFE_LOST.muted ? false : true;
-}
+//   // MUTE AND UNMUTE SOUNDS
+//   WALL_HIT.muted = WALL_HIT.muted ? false : true;
+//   PADDLE_HIT.muted = PADDLE_HIT.muted ? false : true;
+//   BRICK_HIT.muted = BRICK_HIT.muted ? false : true;
+//   WIN.muted = WIN.muted ? false : true;
+//   LIFE_LOST.muted = LIFE_LOST.muted ? false : true;
+// }
 
 // SHOW GAME OVER MESSAGE
 /* SELECT ELEMENTS */

@@ -13,6 +13,21 @@ LIFE_IMG.src = "./naruto_img/life.png";
 const SCORE_IMG = new Image();
 SCORE_IMG.src = "./naruto_img/uzumaki.png";
 
+const PADDLE_IMG = new Image();
+PADDLE_IMG.src = "./naruto_img/plank.png";
+
+const LEVEL_ONE = new Image();
+LEVEL_ONE.src = "./naruto_img/level_one.png";
+
+const LEVEL_TRO = new Image();
+LEVEL_TRO.src = "./naruto_img/level_two.png";
+
+const LEVEL_THREE = new Image();
+LEVEL_THREE.src = "./naruto_img/level_three.png";
+
+const LEVEL_FOUR = new Image();
+LEVEL_FOUR.src = "./naruto_img/level_four.png";
+
 /////// END LOAD IMAGES ////////
 
 // ************************ //
