@@ -13,7 +13,7 @@ const PADDLE_WIDTH = 250;
 const PADDLE_HEIGHT = 52.74;
 const PADDLE_MARGIN_BOTTOM = 50;
 const BALL_RADIUS = 8;
-let LIFE = 10; // PLAYER HAS 3 LIVES
+let LIFE = 3; // PLAYER HAS 3 LIVES
 let SCORE = 0;
 const SCORE_UNIT = 10;
 let LEVEL = 1;
@@ -153,9 +153,9 @@ function ballPaddleCollision() {
 // CREATE THE BRICKS
 const brick = {
   row: 1,
-  column: 15,
-  width: 55,
-  height: 20,
+  column: 13,
+  width: 73.33,
+  height: 26.6,
   offSetLeft: 20,
   offSetTop: 20,
   marginTop: 40,
@@ -190,11 +190,10 @@ function drawBricks() {
       let b = bricks[r][c];
       // if the brick isn't broken
       if (b.status) {
-        ctx.fillStyle = brick.fillColor;
-        ctx.fillRect(b.x, b.y, brick.width, brick.height);
+        ctx.beginPath();
+        ctx.drawImage(BRICK, b.x, b.y, brick.width, brick.height);
+        ctx.closePath();
 
-        ctx.strokeStyle = brick.strokeColor;
-        ctx.strokeRect(b.x, b.y, brick.width, brick.height);
       }
     }
   }

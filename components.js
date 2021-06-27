@@ -28,6 +28,9 @@ LEVEL_THREE.src = "./naruto_img/level_three.png";
 const LEVEL_FOUR = new Image();
 LEVEL_FOUR.src = "./naruto_img/level_four.png";
 
+const BRICK = new Image();
+BRICK.src = "./naruto_img/brick.png";
+
 /////// END LOAD IMAGES ////////
 
 // ************************ //
