@@ -78,15 +78,17 @@ const ball = {
 // DRAW THE BALL
 function drawBall() {
   ctx.beginPath();
-
   ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
   ctx.fillStyle = "white";
   ctx.fill();
-
   ctx.strokeStyle = "white";
   ctx.stroke();
-
   ctx.closePath();
+  // ctx.beginPath();
+  // var backImg = new Image();
+  // backImg.src = "/naruto_img/level_one.png";
+  // context.drawImage(backImg, 0, 0);
+  // context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 // MOVE THE BALL
@@ -224,7 +226,7 @@ function ballBrickCollision() {
 function showGameStats(text, textX, textY, img, imgX, imgY) {
   // draw text
   ctx.fillStyle = "#FFF";
-  ctx.font = "25px Germania One";
+  ctx.font = "25px Press Start 2P One";
   ctx.fillText(text, textX, textY);
 
   // draw image

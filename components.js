@@ -13,7 +13,6 @@ LIFE_IMG.src = "img/life1.png";
 const SCORE_IMG = new Image();
 SCORE_IMG.src = "img/score2.png";
 
-
 /////// END LOAD IMAGES ////////
 
 // ************************ //
@@ -34,6 +33,5 @@ WIN.src = "sounds/win.mp3";
 
 const BRICK_HIT = new Audio();
 BRICK_HIT.src = "sounds/brick_hit.mp3";
-
 
 /////// END LOAD SOUNDS ////////
