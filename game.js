@@ -17,10 +17,11 @@ let LIFE = 3; // PLAYER HAS 3 LIVES
 let SCORE = 0;
 const SCORE_UNIT = 10;
 let LEVEL = 1;
-const MAX_LEVEL = 4;
+const MAX_LEVEL = 1;
 let GAME_OVER = false;
 let leftArrow = false;
 let rightArrow = false;
+let ballImg = LEVEL_ONE;
 
 // CREATE THE PADDLE
 const paddle = {
@@ -75,10 +76,10 @@ const ball = {
   dy: -3,
 };
 
-// DRAW THE BALL
+//? DRAW THE BALL
 function drawBall() {
   ctx.beginPath();
-  ctx.drawImage(LEVEL_ONE, ball.x, ball.y, 35, 35);
+  ctx.drawImage(ballImg, ball.x, ball.y, 35, 35);
   // ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
   // ctx.fillStyle = "white";
   // ctx.fill();
@@ -257,8 +258,20 @@ function gameOver() {
   }
 }
 
-let PaddleSpeed = 0;
+function ballChange(e) {
+  switch(e) {
+    case 1: ballImg = LEVEL_ONE;
+    break;
+    case 2: ballImg = LEVEL_TWO;
+    break;
+    case 3: ballImg = LEVEL_THREE;
+    break;
+    case 4: ballImg = LEVEL_FOUR;
+    break;
+  }
+}
 
+let PaddleSpeed = 0;
 //! level up
 function levelUp() {
   let isLevelDone = true;
@@ -283,6 +296,7 @@ function levelUp() {
     ball.speed += 1;
     resetBall();
     LEVEL++;
+    ballChange(LEVEL);
     movePaddle(PaddleSpeed+= 5);
   }
 }
