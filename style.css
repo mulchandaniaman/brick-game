@@ -15,14 +15,16 @@ body{
   align-items: center;
   height: 100vh;
 }
-#sound {
+
+/* #sound {
   width: 30px;
   height: 30px;
   cursor: pointer;
   position: absolute;
   top: 465px;
   left: 15px;
-}
+} */
+
 #gameover {
   position: absolute;
   top: -100px;
@@ -34,12 +36,22 @@ body{
 
 }
 #youwon {
-  width: 100px;
   position: absolute;
-  top: 200px;
-  left: 150px;
+  width: 100vw;
+  height: auto;
+  top: 100px;
+  left: 0px;
   display: none;
 }
+
+#youwon::after{
+  content: 'YOU WIN';
+  height: 100px;
+  width: auto;
+  position: absolute;
+  z-index: 100;
+}
+
 #youlose {
   height: auto;
   width: 100%;

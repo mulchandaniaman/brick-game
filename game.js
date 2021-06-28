@@ -3,21 +3,21 @@ const cvs = document.getElementById("breakout");
 const ctx = cvs.getContext("2d");
 
 // ADD BORDER TO CANVAS
-cvs.style.border = "1px solid #0ff";
+cvs.style.border = "1px solid #000000";
 
 // MAKE LINE THICK WHEN DRAWING TO CANVAS
 ctx.lineWidth = 3;
 
 // GAME VARIABLES AND CONSTANTS
-const PADDLE_WIDTH = 100;
+const PADDLE_WIDTH = 250;
+const PADDLE_HEIGHT = 52.74;
 const PADDLE_MARGIN_BOTTOM = 50;
-const PADDLE_HEIGHT = 10;
 const BALL_RADIUS = 8;
 let LIFE = 3; // PLAYER HAS 3 LIVES
 let SCORE = 0;
 const SCORE_UNIT = 10;
 let LEVEL = 1;
-const MAX_LEVEL = 5;
+const MAX_LEVEL = 4;
 let GAME_OVER = false;
 let leftArrow = false;
 let rightArrow = false;
@@ -33,11 +33,11 @@ const paddle = {
 
 // DRAW PADDLE
 function drawPaddle() {
-  ctx.fillStyle = "white";
-  ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
-
-  ctx.strokeStyle = "white";
-  ctx.strokeRect(paddle.x, paddle.y, paddle.width, paddle.height);
+  // ctx.fillStyle = "white";
+  // ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
+  ctx.drawImage(PADDLE_IMG, paddle.x, paddle.y, paddle.width, paddle.height);
+  // ctx.strokeStyle = "white";
+  // ctx.strokeRect(paddle.x, paddle.y, paddle.width, paddle.height);
 }
 
 // CONTROL THE PADDLE
@@ -57,11 +57,11 @@ document.addEventListener("keyup", function (event) {
 });
 
 // MOVE PADDLE
-function movePaddle() {
+function movePaddle(e) {
   if (rightArrow && paddle.x + paddle.width < cvs.width) {
-    paddle.x += paddle.dx;
+    paddle.x += (paddle.dx + e);
   } else if (leftArrow && paddle.x > 0) {
-    paddle.x -= paddle.dx;
+    paddle.x -= (paddle.dx + e);
   }
 }
 
@@ -70,7 +70,7 @@ const ball = {
   x: cvs.width / 2,
   y: paddle.y - BALL_RADIUS,
   radius: BALL_RADIUS,
-  speed: 4,
+  speed: 5,
   dx: 3 * (Math.random() * 2 - 1),
   dy: -3,
 };
@@ -78,12 +78,13 @@ const ball = {
 // DRAW THE BALL
 function drawBall() {
   ctx.beginPath();
-  ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-  ctx.fillStyle = "white";
-  ctx.fill();
-  ctx.strokeStyle = "white";
-  ctx.stroke();
-  ctx.closePath();
+  ctx.drawImage(LEVEL_ONE, ball.x, ball.y, 35, 35);
+  // ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+  // ctx.fillStyle = "white";
+  // ctx.fill();
+  // ctx.strokeStyle = "white";
+  // ctx.stroke();
+  // ctx.closePath();
   // ctx.beginPath();
   // var backImg = new Image();
   // backImg.src = "/naruto_img/level_one.png";
@@ -111,7 +112,7 @@ function ballWallCollision() {
 
   if (ball.y + ball.radius > cvs.height) {
     LIFE--; // LOSE LIFE
-    LIFE_LOST.play();
+    // LIFE_LOST.play();
     resetBall();
   }
 }
@@ -152,14 +153,14 @@ function ballPaddleCollision() {
 // CREATE THE BRICKS
 const brick = {
   row: 1,
-  column: 5,
-  width: 55,
-  height: 20,
+  column: 13,
+  width: 73.33,
+  height: 26.6,
   offSetLeft: 20,
   offSetTop: 20,
   marginTop: 40,
-  fillColor: "#white",
-  strokeColor: "white",
+  fillColor: "#902020",
+  strokeColor: "black",
 };
 
 let bricks = [];
@@ -189,11 +190,10 @@ function drawBricks() {
       let b = bricks[r][c];
       // if the brick isn't broken
       if (b.status) {
-        ctx.fillStyle = brick.fillColor;
-        ctx.fillRect(b.x, b.y, brick.width, brick.height);
+        ctx.beginPath();
+        ctx.drawImage(BRICK, b.x, b.y, brick.width, brick.height);
+        ctx.closePath();
 
-        ctx.strokeStyle = brick.strokeColor;
-        ctx.strokeRect(b.x, b.y, brick.width, brick.height);
       }
     }
   }
@@ -226,11 +226,11 @@ function ballBrickCollision() {
 function showGameStats(text, textX, textY, img, imgX, imgY) {
   // draw text
   ctx.fillStyle = "#FFF";
-  ctx.font = "25px Press Start 2P One";
+  // ctx.font = "50px Press Start 2P One";
   ctx.fillText(text, textX, textY);
 
   // draw image
-  ctx.drawImage(img, imgX, imgY, (width = 25), (height = 25));
+  ctx.drawImage(img, imgX, imgY, (width = 40), (height = 40));
 }
 
 // DRAW FUNCTION
@@ -242,11 +242,11 @@ function draw() {
   drawBricks();
 
   // SHOW SCORE
-  showGameStats(SCORE, 35, 25, SCORE_IMG, 5, 5);
+  showGameStats(SCORE, 50, 30, SCORE_IMG, 5, 5);
   // SHOW LIVES
-  showGameStats(LIFE, cvs.width - 25, 25, LIFE_IMG, cvs.width - 55, 5);
+  showGameStats(LIFE, cvs.width - 25, 30, LIFE_IMG, cvs.width - 75, 5);
   // SHOW LEVEL
-  showGameStats(LEVEL, cvs.width / 2, 25, LEVEL_IMG, cvs.width / 2 - 30, 5);
+  showGameStats(LEVEL, cvs.width / 2, 30, LEVEL_IMG, cvs.width / 2 - 45, 5);
 }
 
 // game over
@@ -257,7 +257,9 @@ function gameOver() {
   }
 }
 
-// level up
+let PaddleSpeed = 0;
+
+//! level up
 function levelUp() {
   let isLevelDone = true;
 
@@ -278,15 +280,16 @@ function levelUp() {
     }
     brick.row++;
     createBricks();
-    ball.speed += 0.5;
+    ball.speed += 1;
     resetBall();
     LEVEL++;
+    movePaddle(PaddleSpeed+= 5);
   }
 }
 
 // UPDATE GAME FUNCTION
 function update() {
-  movePaddle();
+  movePaddle(PaddleSpeed);
 
   moveBall();
 
@@ -316,26 +319,26 @@ function loop() {
 }
 loop();
 
-// SELECT SOUND ELEMENT
-const soundElement = document.getElementById("sound");
+// !SELECT SOUND ELEMENT
+// const soundElement = document.getElementById("sound");
 
-soundElement.addEventListener("click", audioManager);
+// soundElement.addEventListener("click", audioManager);
 
-function audioManager() {
-  // CHANGE IMAGE SOUND_ON/OFF
-  let imgSrc = soundElement.getAttribute("src");
-  let SOUND_IMG =
-    imgSrc == "img/SOUND_ON.png" ? "img/SOUND_OFF.png" : "img/SOUND_ON.png";
+// function audioManager() {
+//   // CHANGE IMAGE SOUND_ON/OFF
+//   let imgSrc = soundElement.getAttribute("src");
+//   let SOUND_IMG =
+//     imgSrc == "img/SOUND_ON.png" ? "img/SOUND_OFF.png" : "img/SOUND_ON.png";
 
-  soundElement.setAttribute("src", SOUND_IMG);
+//   soundElement.setAttribute("src", SOUND_IMG);
 
-  // MUTE AND UNMUTE SOUNDS
-  WALL_HIT.muted = WALL_HIT.muted ? false : true;
-  PADDLE_HIT.muted = PADDLE_HIT.muted ? false : true;
-  BRICK_HIT.muted = BRICK_HIT.muted ? false : true;
-  WIN.muted = WIN.muted ? false : true;
-  LIFE_LOST.muted = LIFE_LOST.muted ? false : true;
-}
+//   // MUTE AND UNMUTE SOUNDS
+//   WALL_HIT.muted = WALL_HIT.muted ? false : true;
+//   PADDLE_HIT.muted = PADDLE_HIT.muted ? false : true;
+//   BRICK_HIT.muted = BRICK_HIT.muted ? false : true;
+//   WIN.muted = WIN.muted ? false : true;
+//   LIFE_LOST.muted = LIFE_LOST.muted ? false : true;
+// }
 
 // SHOW GAME OVER MESSAGE
 /* SELECT ELEMENTS */
