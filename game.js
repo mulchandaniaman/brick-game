@@ -17,7 +17,7 @@ let LIFE = 3; // PLAYER HAS 3 LIVES
 let SCORE = 0;
 const SCORE_UNIT = 10;
 let LEVEL = 1;
-const MAX_LEVEL = 5;
+const MAX_LEVEL = 4;
 let GAME_OVER = false;
 let leftArrow = false;
 let rightArrow = false;
@@ -59,9 +59,9 @@ document.addEventListener("keyup", function (event) {
 // MOVE PADDLE
 function movePaddle() {
   if (rightArrow && paddle.x + paddle.width < cvs.width) {
-    paddle.x += paddle.dx;
+    paddle.x += (paddle.dx);
   } else if (leftArrow && paddle.x > 0) {
-    paddle.x -= paddle.dx;
+    paddle.x -= (paddle.dx);
   }
 }
 
@@ -70,7 +70,7 @@ const ball = {
   x: cvs.width / 2,
   y: paddle.y - BALL_RADIUS,
   radius: BALL_RADIUS,
-  speed: 4,
+  speed: 5,
   dx: 3 * (Math.random() * 2 - 1),
   dy: -3,
 };
@@ -78,7 +78,7 @@ const ball = {
 // DRAW THE BALL
 function drawBall() {
   ctx.beginPath();
-  ctx.drawImage(LEVEL_FOUR, ball.x, ball.y, 35, 35);
+  ctx.drawImage(LEVEL_ONE, ball.x, ball.y, 35, 35);
   // ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
   // ctx.fillStyle = "white";
   // ctx.fill();
@@ -226,11 +226,11 @@ function ballBrickCollision() {
 function showGameStats(text, textX, textY, img, imgX, imgY) {
   // draw text
   ctx.fillStyle = "#FFF";
-  ctx.font = "25px Press Start 2P One";
+  // ctx.font = "50px Press Start 2P One";
   ctx.fillText(text, textX, textY);
 
   // draw image
-  ctx.drawImage(img, imgX, imgY, (width = 25), (height = 25));
+  ctx.drawImage(img, imgX, imgY, (width = 40), (height = 40));
 }
 
 // DRAW FUNCTION
@@ -242,11 +242,11 @@ function draw() {
   drawBricks();
 
   // SHOW SCORE
-  showGameStats(SCORE, 35, 25, SCORE_IMG, 5, 5);
+  showGameStats(SCORE, 50, 30, SCORE_IMG, 5, 5);
   // SHOW LIVES
-  showGameStats(LIFE, cvs.width - 25, 25, LIFE_IMG, cvs.width - 55, 5);
+  showGameStats(LIFE, cvs.width - 25, 30, LIFE_IMG, cvs.width - 75, 5);
   // SHOW LEVEL
-  showGameStats(LEVEL, cvs.width / 2, 25, LEVEL_IMG, cvs.width / 2 - 30, 5);
+  showGameStats(LEVEL, cvs.width / 2, 30, LEVEL_IMG, cvs.width / 2 - 45, 5);
 }
 
 // game over
@@ -257,7 +257,7 @@ function gameOver() {
   }
 }
 
-// level up
+//! level up
 function levelUp() {
   let isLevelDone = true;
 
@@ -278,7 +278,7 @@ function levelUp() {
     }
     brick.row++;
     createBricks();
-    ball.speed += 0.5;
+    ball.speed += 1;
     resetBall();
     LEVEL++;
   }
