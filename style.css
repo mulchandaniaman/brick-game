@@ -37,24 +37,24 @@ body{
 }
 #youwon {
   position: absolute;
+  height: 100vh;
   width: 100vw;
-  height: auto;
   top: 100px;
   left: 0px;
   display: none;
 }
 
-#youwon::after{
+/* #youwon::after{
   content: 'YOU WIN';
   height: 100px;
   width: auto;
   position: absolute;
   z-index: 100;
-}
+} */
 
 #youlose {
   height: auto;
-  width: 100%;
+  width: 100vw;
   position: absolute;
   top: 100px;
   left: 0px;
@@ -64,7 +64,7 @@ body{
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-95%, -50%);
+  transform: translate(-79%, 80%);
   cursor: pointer;
   font-size: 1.25em;
   color: #fff;
