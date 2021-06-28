@@ -13,7 +13,7 @@ const PADDLE_WIDTH = 250;
 const PADDLE_HEIGHT = 52.74;
 const PADDLE_MARGIN_BOTTOM = 50;
 const BALL_RADIUS = 8;
-let LIFE = 4; // PLAYER HAS 3 LIVES
+let LIFE = 3; // PLAYER HAS 3 LIVES
 let SCORE = 0;
 const SCORE_UNIT = 10;
 let LEVEL = 1;
@@ -34,11 +34,7 @@ const paddle = {
 
 // DRAW PADDLE
 function drawPaddle() {
-  // ctx.fillStyle = "white";
-  // ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
   ctx.drawImage(PADDLE_IMG, paddle.x, paddle.y, paddle.width, paddle.height);
-  // ctx.strokeStyle = "white";
-  // ctx.strokeRect(paddle.x, paddle.y, paddle.width, paddle.height);
 }
 
 // CONTROL THE PADDLE
@@ -80,17 +76,7 @@ const ball = {
 function drawBall() {
   ctx.beginPath();
   ctx.drawImage(ballImg, ball.x, ball.y, 35, 35);
-  // ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-  // ctx.fillStyle = "white";
-  // ctx.fill();
-  // ctx.strokeStyle = "white";
-  // ctx.stroke();
-  // ctx.closePath();
-  // ctx.beginPath();
-  // var backImg = new Image();
-  // backImg.src = "/naruto_img/level_one.png";
-  // context.drawImage(backImg, 0, 0);
-  // context.fillRect(0, 0, canvas.width, canvas.height);
+
 }
 
 // MOVE THE BALL
@@ -323,6 +309,7 @@ function update() {
 
 // GAME LOOP
 function loop() {
+
   // CLEAR THE CANVAS
   ctx.drawImage(BG_IMG, 0, 0);
 
@@ -333,29 +320,14 @@ function loop() {
   if (!GAME_OVER) {
     requestAnimationFrame(loop);
   }
-}
-loop();
+};
 
-// !SELECT SOUND ELEMENT
-// const soundElement = document.getElementById("sound");
+const dummy = () => {
+  console.log("abcd");
+  loop();
+};
+setTimeout(dummy, 3000);
 
-// soundElement.addEventListener("click", audioManager);
-
-// function audioManager() {
-//   // CHANGE IMAGE SOUND_ON/OFF
-//   let imgSrc = soundElement.getAttribute("src");
-//   let SOUND_IMG =
-//     imgSrc == "img/SOUND_ON.png" ? "img/SOUND_OFF.png" : "img/SOUND_ON.png";
-
-//   soundElement.setAttribute("src", SOUND_IMG);
-
-//   // MUTE AND UNMUTE SOUNDS
-//   WALL_HIT.muted = WALL_HIT.muted ? false : true;
-//   PADDLE_HIT.muted = PADDLE_HIT.muted ? false : true;
-//   BRICK_HIT.muted = BRICK_HIT.muted ? false : true;
-//   WIN.muted = WIN.muted ? false : true;
-//   LIFE_LOST.muted = LIFE_LOST.muted ? false : true;
-// }
 
 // SHOW GAME OVER MESSAGE
 /* SELECT ELEMENTS */
