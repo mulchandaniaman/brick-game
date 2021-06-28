@@ -13,7 +13,7 @@ const PADDLE_WIDTH = 250;
 const PADDLE_HEIGHT = 52.74;
 const PADDLE_MARGIN_BOTTOM = 50;
 const BALL_RADIUS = 8;
-let LIFE = 3; // PLAYER HAS 3 LIVES
+let LIFE = 4; // PLAYER HAS 3 LIVES
 let SCORE = 0;
 const SCORE_UNIT = 10;
 let LEVEL = 1;
@@ -60,9 +60,9 @@ document.addEventListener("keyup", function (event) {
 // MOVE PADDLE
 function movePaddle(e) {
   if (rightArrow && paddle.x + paddle.width < cvs.width) {
-    paddle.x += (paddle.dx + e);
+    paddle.x += paddle.dx + e;
   } else if (leftArrow && paddle.x > 0) {
-    paddle.x -= (paddle.dx + e);
+    paddle.x -= paddle.dx + e;
   }
 }
 
@@ -194,7 +194,6 @@ function drawBricks() {
         ctx.beginPath();
         ctx.drawImage(BRICK, b.x, b.y, brick.width, brick.height);
         ctx.closePath();
-
       }
     }
   }
@@ -259,15 +258,19 @@ function gameOver() {
 }
 
 function ballChange(e) {
-  switch(e) {
-    case 1: ballImg = LEVEL_ONE;
-    break;
-    case 2: ballImg = LEVEL_TWO;
-    break;
-    case 3: ballImg = LEVEL_THREE;
-    break;
-    case 4: ballImg = LEVEL_FOUR;
-    break;
+  switch (e) {
+    case 1:
+      ballImg = LEVEL_ONE;
+      break;
+    case 2:
+      ballImg = LEVEL_TWO;
+      break;
+    case 3:
+      ballImg = LEVEL_THREE;
+      break;
+    case 4:
+      ballImg = LEVEL_FOUR;
+      break;
   }
 }
 
@@ -297,7 +300,7 @@ function levelUp() {
     resetBall();
     LEVEL++;
     ballChange(LEVEL);
-    movePaddle(PaddleSpeed+= 5);
+    movePaddle((PaddleSpeed += 5));
   }
 }
 
