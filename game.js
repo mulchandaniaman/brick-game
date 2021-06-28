@@ -57,11 +57,11 @@ document.addEventListener("keyup", function (event) {
 });
 
 // MOVE PADDLE
-function movePaddle() {
+function movePaddle(e) {
   if (rightArrow && paddle.x + paddle.width < cvs.width) {
-    paddle.x += (paddle.dx);
+    paddle.x += (paddle.dx + e);
   } else if (leftArrow && paddle.x > 0) {
-    paddle.x -= (paddle.dx);
+    paddle.x -= (paddle.dx + e);
   }
 }
 
@@ -257,6 +257,8 @@ function gameOver() {
   }
 }
 
+let PaddleSpeed = 0;
+
 //! level up
 function levelUp() {
   let isLevelDone = true;
@@ -281,12 +283,13 @@ function levelUp() {
     ball.speed += 1;
     resetBall();
     LEVEL++;
+    movePaddle(PaddleSpeed+= 5);
   }
 }
 
 // UPDATE GAME FUNCTION
 function update() {
-  movePaddle();
+  movePaddle(PaddleSpeed);
 
   moveBall();
 
